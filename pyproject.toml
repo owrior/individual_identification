@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "Individual Identification"
+version = "0.0.1"
+description = ""
+authors = ["Oscar Riordan"]
+
+packages = [
+    {include = "iid"}
+]
+
+[tool.poetry.dependencies]
+python=">=3.9, <4.0"
+numpy="1.23.4"
+prefect="2.6.5"
+pre-commit="2.20.0"
+pathlib="1.0.1"

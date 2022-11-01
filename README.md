@@ -3,7 +3,7 @@
 ## Setup
 
 ```
-python -m vev .venv
+python3 -m venv .venv
 
 # Mac
 source .venv/bin/activate
@@ -11,5 +11,11 @@ source .venv/bin/activate
 # Windows
 .venv/Scripts/activate
 
-pip install -r requirements.txt
+pip install -U pip
+
+pip install poetry
+
+poetry install & pip install -r requirements.txt
 ```
+
+## Usage

@@ -1,3 +1,0 @@
-default_input: images
-default_output: output
-batch_size: 1000
