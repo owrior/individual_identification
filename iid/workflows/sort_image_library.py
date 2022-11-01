@@ -9,7 +9,7 @@ from iid.processing.preprocessing import convert_images_to_tensors, read_images
 from iid.system_interaction import generate_batches, image_discovery
 
 
-@prefect.flow(task_runner=prefect.task_runners.SequentialTaskRunner())
+@prefect.flow(task_runner=prefect.task_runners.ConcurrentTaskRunner())
 def coordinate_batching(
     image_directory: str = "images",
     output_directory: str = "output_images",
@@ -22,7 +22,7 @@ def coordinate_batching(
         process_batch(image_batch, output_directory)
 
 
-@prefect.flow(task_runner=prefect.task_runners.SequentialTaskRunner())
+@prefect.flow(task_runner=prefect.task_runners.ConcurrentTaskRunner())
 def process_batch(image_batch: List[Path], output_directory: str):
     images = read_images(image_batch)
     image_tensors = convert_images_to_tensors(images)
