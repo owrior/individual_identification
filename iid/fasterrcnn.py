@@ -1,13 +1,14 @@
+from pathlib import Path
+
 import torchvision
 from PIL import Image, ImageDraw
-from pathlib import Path
 
 model = torchvision.models.detection.fasterrcnn_mobilenet_v3_large_fpn(pretrained=True)
 img_to_tensor = torchvision.transforms.ToTensor()
 tensor_to_image = torchvision.transforms.ToPILImage()
 
 image_path = Path("images")
-detected_path = Path("identified")
+detected_path = Path("output_images")
 CROP = False
 
 # For inference

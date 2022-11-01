@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List
 
 import prefect
@@ -22,8 +23,12 @@ def coordinate_batching(
 
 
 @prefect.flow(task_runner=prefect.task_runners.SequentialTaskRunner())
-def process_batch(image_batch: List[str], output_directory: str):
+def process_batch(image_batch: List[Path], output_directory: str):
     images = read_images(image_batch)
     image_tensors = convert_images_to_tensors(images)
     predictions = detect_objects(image_tensors)
     move_detections_to_output(image_batch, predictions, output_directory)
+
+
+if __name__ == "__main__":
+    coordinate_batching()

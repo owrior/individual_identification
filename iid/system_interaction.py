@@ -13,7 +13,7 @@ def image_discovery(image_directory: str) -> List[str]:
 
 
 @prefect.task
-def generate_batches(image_paths: List[str], batch_size: int) -> List[List[str]]:
+def generate_batches(image_paths: List[str], batch_size: int) -> List[List[Path]]:
     """
     Split list of all images into batches.
     """
