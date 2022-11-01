@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Image folders
-identified
+output_images
 images
