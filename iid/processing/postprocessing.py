@@ -19,5 +19,5 @@ def move_detections_to_output(
         if (detections["scores"] > 0.7).any():
             shutil.copy(
                 image_path,
-                Path(output_directory) / image_path.relative_to(*image_path.parts[0:1]),
+                Path(output_directory) / image_path.relative_to(*image_path.parts[:1]),
             )
