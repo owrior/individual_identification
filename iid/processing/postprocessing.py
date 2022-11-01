@@ -14,10 +14,16 @@ def move_detections_to_output(
     Move images with a detected score above a specified threshold to the output
     directory.
     """
+    shutil.copytree(
+        "images",
+        "output_images",
+        dirs_exist_ok=True,
+        ignore=shutil.ignore_patterns("*.jpg", "*.jpeg", "*.JPG", "JPEG"),
+    )
     for _, detections in enumerate(predictions):
         image_path = image_paths[_]
         if (detections["scores"] > 0.7).any():
-            shutil.copy(
-                image_path,
-                Path(output_directory) / image_path.relative_to(*image_path.parts[:1]),
+            write_location = Path(output_directory) / image_path.relative_to(
+                *image_path.parts[:1]
             )
+            shutil.copyfile(image_path, write_location)

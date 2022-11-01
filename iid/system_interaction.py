@@ -9,7 +9,7 @@ def image_discovery(image_directory: str) -> List[str]:
     """
     Fetch image paths either from a specified location or the default.
     """
-    return list(Path(image_directory).glob("*.jpeg"))
+    return list(Path(image_directory).rglob("*.jpeg"))
 
 
 @prefect.task
