@@ -16,6 +16,8 @@ pip install -U pip
 pip install poetry
 
 poetry install & pip install -r requirements.txt
+
+pre-commit install
 ```
 
 ## Usage
