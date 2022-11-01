@@ -1,6 +1,5 @@
 torch==1.13.0
 torchvision==0.14.0
 numpy==1.23.4
-black==22.10.0
 prefect==2.6.5
 pre-commit==2.20.0
