@@ -12,6 +12,7 @@ def move_detections_to_output(
     images: List[Image.Image],
     image_paths: List[Path],
     predictions: torch.tensor,
+    image_directory: str,
     output_directory: str,
     draw_boxes: bool,
 ) -> None:
@@ -20,8 +21,8 @@ def move_detections_to_output(
     directory.
     """
     shutil.copytree(
-        "images",
-        "output_images",
+        image_directory,
+        output_directory,
         dirs_exist_ok=True,
         ignore=shutil.ignore_patterns("*.jpg", "*.jpeg", "*.JPG", "JPEG"),
     )
@@ -29,7 +30,7 @@ def move_detections_to_output(
         image_path = image_paths[_]
         if (detections["scores"] > 0.7).any():
             write_location = Path(output_directory) / image_path.relative_to(
-                *image_path.parts[:1]
+                image_directory
             )
             if draw_boxes:
                 image = images[_].copy()
