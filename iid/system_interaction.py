@@ -3,13 +3,18 @@ from typing import List
 
 import prefect
 
+IMAGE_PATTERNS = ["*.jpg", "*.jpeg", "*.JPG", ".*JPEG"]
+
 
 @prefect.task
 def image_discovery(image_directory: str) -> List[str]:
     """
     Fetch image paths either from a specified location or the default.
     """
-    return list(Path(image_directory).rglob("*.jpeg"))
+    image_paths = []
+    for image_pattern in IMAGE_PATTERNS:
+        image_paths += list(Path(image_directory).rglob(image_pattern))
+    return image_paths
 
 
 @prefect.task
