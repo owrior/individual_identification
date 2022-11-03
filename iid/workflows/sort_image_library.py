@@ -13,7 +13,7 @@ from iid.system_interaction import generate_batches, image_discovery
 def coordinate_batching(
     image_directory: str = "/Users/owrior/Downloads/Liz stripe I.D",
     output_directory: str = "output_images",
-    batch_size: int = 10,
+    batch_size: int = 50,
     draw_boxes: bool = False,
 ):
     all_images = image_discovery(image_directory)

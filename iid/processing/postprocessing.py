@@ -6,6 +6,8 @@ import prefect
 import torch
 from PIL import Image, ImageDraw
 
+from iid.system_interaction import IMAGE_PATTERNS
+
 
 @prefect.task
 def move_detections_to_output(
@@ -25,7 +27,7 @@ def move_detections_to_output(
         image_directory,
         output_directory,
         dirs_exist_ok=True,
-        ignore=shutil.ignore_patterns("*.jpg", "*.jpeg", "*.JPG", "JPEG"),
+        ignore=shutil.ignore_patterns(*IMAGE_PATTERNS),
     )
     number_detected = 0
     for _, detections in enumerate(predictions):
