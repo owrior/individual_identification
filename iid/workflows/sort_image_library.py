@@ -13,9 +13,9 @@ from iid.system_interaction import generate_batches, image_discovery
 def coordinate_batching(
     image_directory: str = "/Users/owrior/Downloads/Camera Trap Images",
     output_directory: str = "output_images",
-    batch_size: int = 50,
+    batch_size: int = 10,
     tolerance: float = 0.3,
-    draw_boxes: bool = False,
+    draw_boxes: bool = True,
 ):
     create_destination_structure(image_directory, output_directory)
 

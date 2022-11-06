@@ -7,13 +7,14 @@ import torch
 from PIL import Image, ImageDraw
 
 from iid.format.font import GIDOLE_FONT
+from iid.format.labels import LABELS
 from iid.system_interaction import IMAGE_PATTERNS
 
 logger = logging.getLogger(__name__)
 
 
 def create_destination_structure(image_directory: str, output_directory: str) -> None:
-    (Path(output_directory) / "Undetected").mkdir(parents=True)
+    (Path(output_directory) / "Undetected").mkdir(parents=True, exist_ok=True)
     shutil.copytree(
         image_directory,
         output_directory,
@@ -48,7 +49,9 @@ def move_detections_to_output(
 
         if draw_boxes:
             image = images[_]
-            for score, box in zip(detections["scores"], detections["boxes"]):
+            for score, label, box in zip(
+                detections["scores"], detections["labels"], detections["boxes"]
+            ):
                 (startX, startY, endX, endY) = box.detach().cpu().numpy().astype("int")
                 img_draw = ImageDraw.Draw(image)
 
@@ -58,7 +61,11 @@ def move_detections_to_output(
 
                 y = startY - 15 if startY > 30 else startY + 15
                 score_text = round(float(score.detach().numpy()), 4)
-                img_draw.text((startX, y), f"{score_text}", font=GIDOLE_FONT)
+                img_draw.text(
+                    (startX, y),
+                    f"{LABELS[float(label.detach().numpy())]}: {score_text}",
+                    font=GIDOLE_FONT,
+                )
             image.save(write_location)
         else:
             shutil.copyfile(image_path, write_location)
