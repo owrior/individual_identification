@@ -1,15 +1,16 @@
+import logging
 import shutil
 from pathlib import Path
 from typing import List
 
-import prefect
 import torch
 from PIL import Image, ImageDraw
 
 from iid.system_interaction import IMAGE_PATTERNS
 
+logger = logging.getLogger(__name__)
 
-@prefect.task
+
 def move_detections_to_output(
     images: List[Image.Image],
     image_paths: List[Path],
@@ -22,7 +23,6 @@ def move_detections_to_output(
     Move images with a detected score above a specified threshold to the output
     directory.
     """
-    logger = prefect.get_run_logger()
     shutil.copytree(
         image_directory,
         output_directory,

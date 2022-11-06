@@ -1,11 +1,9 @@
 from typing import Dict, List
 
-import prefect
 import torch
 from torchvision.models import detection
 
 
-@prefect.task
 def detect_objects(
     image_tensors: torch.Tensor,
     model=detection.fasterrcnn_mobilenet_v3_large_fpn(

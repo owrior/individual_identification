@@ -1,15 +1,12 @@
 from pathlib import Path
 from typing import List
 
-import prefect
-
 from iid.model.detection import detect_objects
 from iid.processing.postprocessing import move_detections_to_output
 from iid.processing.preprocessing import convert_images_to_tensors, read_images
 from iid.system_interaction import generate_batches, image_discovery
 
 
-@prefect.flow(task_runner=prefect.task_runners.ConcurrentTaskRunner())
 def coordinate_batching(
     image_directory: str = "/Users/owrior/Downloads/Liz stripe I.D",
     output_directory: str = "output_images",
@@ -23,7 +20,6 @@ def coordinate_batching(
         process_batch(image_batch, image_directory, output_directory, draw_boxes)
 
 
-@prefect.flow(task_runner=prefect.task_runners.ConcurrentTaskRunner())
 def process_batch(
     image_batch: List[Path],
     image_directory: str,
