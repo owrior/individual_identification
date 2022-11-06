@@ -12,28 +12,33 @@ from iid.system_interaction import IMAGE_PATTERNS
 logger = logging.getLogger(__name__)
 
 
-def move_detections_to_output(
-    images: List[Image.Image],
-    image_paths: List[Path],
-    predictions: torch.tensor,
-    image_directory: str,
-    output_directory: str,
-    draw_boxes: bool,
-) -> None:
-    """
-    Move images with a detected score above a specified threshold to the output
-    directory.
-    """
+def create_destination_structure(image_directory: str, output_directory: str) -> None:
+    (Path(output_directory) / "Undetected").mkdir(parents=True)
     shutil.copytree(
         image_directory,
         output_directory,
         dirs_exist_ok=True,
         ignore=shutil.ignore_patterns(*IMAGE_PATTERNS),
     )
+
+
+def move_detections_to_output(
+    images: List[Image.Image],
+    image_paths: List[Path],
+    predictions: torch.tensor,
+    image_directory: str,
+    output_directory: str,
+    tolerance: float,
+    draw_boxes: bool,
+) -> None:
+    """
+    Move images with a detected score above a specified threshold to the output
+    directory.
+    """
     number_detected = 0
     for _, detections in enumerate(predictions):
         image_path = image_paths[_]
-        if (detections["scores"] > 0.7).any():
+        if (detections["scores"] > tolerance).any():
             number_detected += 1
             write_location = Path(output_directory) / image_path.relative_to(
                 image_directory
@@ -52,7 +57,7 @@ def move_detections_to_output(
                 )
 
                 y = startY - 15 if startY > 30 else startY + 15
-                score_text = score.detach().numpy().round(4)
+                score_text = round(float(score.detach().numpy()), 4)
                 img_draw.text((startX, y), f"{score_text}", font=GIDOLE_FONT)
             image.save(write_location)
         else:
