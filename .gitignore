@@ -131,3 +131,5 @@ dmypy.json
 # Image folders
 output_images
 images
+
+.DS_Store

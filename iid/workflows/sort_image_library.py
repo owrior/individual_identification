@@ -11,7 +11,7 @@ def coordinate_batching(
     image_directory: str = "/Users/owrior/Downloads/Liz stripe I.D",
     output_directory: str = "output_images",
     batch_size: int = 50,
-    draw_boxes: bool = False,
+    draw_boxes: bool = True,
 ):
     all_images = image_discovery(image_directory)
     image_batches = generate_batches(all_images, batch_size)

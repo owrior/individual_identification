@@ -6,6 +6,7 @@ from typing import List
 import torch
 from PIL import Image, ImageDraw
 
+from iid.format.font import GIDOLE_FONT
 from iid.system_interaction import IMAGE_PATTERNS
 
 logger = logging.getLogger(__name__)
@@ -37,22 +38,24 @@ def move_detections_to_output(
             write_location = Path(output_directory) / image_path.relative_to(
                 image_directory
             )
-            if draw_boxes:
-                image = images[_]
-                for score, box in zip(detections["scores"], detections["boxes"]):
-                    (startX, startY, endX, endY) = (
-                        box.detach().cpu().numpy().astype("int")
-                    )
-                    img_draw = ImageDraw.Draw(image)
-                    img_draw.rectangle(
-                        [(startX, startY), (endX, endY)], outline="red", width=2
-                    )
-                    y = startY - 15 if startY > 30 else startY + 15
-                    img_draw.text(
-                        (startX, y), f"{torch.round(score, decimals=4)}", fill="red"
-                    )
-                image.save(write_location)
-            else:
-                shutil.copyfile(image_path, write_location)
+        else:
+            write_location = Path(output_directory) / "Undetected" / image_path.name
+
+        if draw_boxes:
+            image = images[_]
+            for score, box in zip(detections["scores"], detections["boxes"]):
+                (startX, startY, endX, endY) = box.detach().cpu().numpy().astype("int")
+                img_draw = ImageDraw.Draw(image)
+
+                img_draw.rectangle(
+                    [(startX, startY), (endX, endY)], outline="red", width=4
+                )
+
+                y = startY - 15 if startY > 30 else startY + 15
+                score_text = score.detach().numpy().round(4)
+                img_draw.text((startX, y), f"{score_text}", font=GIDOLE_FONT)
+            image.save(write_location)
+        else:
+            shutil.copyfile(image_path, write_location)
 
     logger.info(f"{number_detected} detected in batch.")
