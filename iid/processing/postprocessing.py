@@ -48,7 +48,9 @@ def move_detections_to_output(
                         [(startX, startY), (endX, endY)], outline="red", width=2
                     )
                     y = startY - 15 if startY > 30 else startY + 15
-                    img_draw.text((startX, y), f"{torch.round(score, decimals=4)}")
+                    img_draw.text(
+                        (startX, y), f"{torch.round(score, decimals=4)}", fill="red"
+                    )
                 image.save(write_location)
             else:
                 shutil.copyfile(image_path, write_location)
