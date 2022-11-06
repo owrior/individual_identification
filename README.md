@@ -15,7 +15,10 @@ pip install -U pip
 
 pip install poetry
 
-poetry install & pip install -r requirements.txt
+poetry install
+
+# Just because pytorch doesn't work with poetry for some reason.
+pip install -r requirements.txt
 
 pre-commit install
 ```
