@@ -11,6 +11,6 @@ packages = [
 [tool.poetry.dependencies]
 python=">=3.9, <4.0"
 numpy="1.23.4"
-prefect="2.6.5"
 pre-commit="2.20.0"
 pathlib="1.0.1"
+polars="0.14.26"
