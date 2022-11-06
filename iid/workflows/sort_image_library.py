@@ -1,13 +1,13 @@
 from pathlib import Path
 from typing import List
 
-from iid.model.detection import detect_objects
-from iid.processing.postprocessing import (
+from iId.model.detection import detect_objects
+from iId.processing.postprocessing import (
     create_destination_structure,
     move_detections_to_output,
 )
-from iid.processing.preprocessing import convert_images_to_tensors, read_images
-from iid.system_interaction import generate_batches, image_discovery
+from iId.processing.preprocessing import convert_images_to_tensors, read_images
+from iId.system_interaction import generate_batches, image_discovery
 
 
 def coordinate_batching(
