@@ -38,7 +38,7 @@ def move_detections_to_output(
                 image_directory
             )
             if draw_boxes:
-                image = images[_].copy()
+                image = images[_]
                 for score, box in zip(detections["scores"], detections["boxes"]):
                     (startX, startY, endX, endY) = (
                         box.detach().cpu().numpy().astype("int")
