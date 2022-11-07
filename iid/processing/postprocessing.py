@@ -6,9 +6,9 @@ from typing import List
 import torch
 from PIL import Image, ImageDraw
 
-from iId.format.font import GIDOLE_FONT
-from iId.format.labels import LABELS
-from iId.system_interaction import IMAGE_PATTERNS
+from iid.format.font import GIDOLE_FONT
+from iid.format.labels import LABELS
+from iid.system_interaction import IMAGE_PATTERNS
 
 logger = logging.getLogger(__name__)
 
