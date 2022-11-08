@@ -1,5 +1,3 @@
-from typing import Dict, List
-
 import torch
 from torchvision.models import detection
 
@@ -15,7 +13,7 @@ FASTER_RCNN_RESNET = detection.fasterrcnn_resnet50_fpn_v2(
 def detect_objects(
     image_tensors: torch.Tensor,
     model=FASTER_RCNN_RESNET,
-) -> List[Dict[str, torch.tensor]]:
+) -> torch.Tensor:
     """
     Detects objects and predicts their classification with a specified model.
     """

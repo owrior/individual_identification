@@ -1,5 +1,6 @@
 from typing import List
 
+import torch
 import torchvision
 from PIL import Image
 
@@ -15,7 +16,7 @@ def read_images(image_locations: List[str]) -> List[Image.Image]:
 
 def convert_images_to_tensors(
     images: List[Image.Image],
-) -> List[torchvision.torch.Tensor]:
+) -> List[torch.Tensor]:
     """
     Converts images to tensors using torchvision.transforms.
     """
